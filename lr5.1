@@ -1,0 +1,122 @@
+#include <iomanip>
+#include <iostream>
+#include <string>
+using namespace std;
+
+void func(string** str, char start, int fr, int tw)
+{
+    int l = 0;
+    for (int i = 0; i < fr; i++)
+    {
+        for (int j = 0; j < tw; j++)
+        {
+            if (str[i][j][0] == start)
+            {
+                cout << str[i][j] << endl;
+            }
+        }
+    }
+}
+
+void chet(string** str, char start, int fr, int tw)
+{
+    for (int i = 0; i < fr; i++)
+    {
+
+        for (int j = 0; j < tw; j++)
+        {
+            if (i % 2 != 0 && str[i][j][0] == start)
+            {
+                str[i][j] = "";
+            }
+            else if (i % 2 == 0 && str[i][j][0] == start)
+            {
+                for (int k = 0; k < size(str[i][j]); k++)
+                {
+                    cout << (char)toupper(str[i][j][k]);
+                }
+                cout << " ";
+            }
+            else
+            {
+                cout << str[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+
+void func_format(string** str, int length_str, int fr, int tw)
+{
+    setlocale(LC_ALL, "RUSSIAN");
+    int chet = 0;
+    for (int i = 0; i < fr; i++)
+    {
+        for (int j = 0; j < tw; j++)
+        {
+            for (int k = 0; k < str[i][j].size(); k++)
+            {
+                cout << str[i][j][k];
+                chet++;
+                if (chet == length_str)
+                {
+                    cout << endl;
+                    chet = 0;
+                }
+            }
+            cout << " ";
+
+        }
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "RUSSIAN");
+    bool k = true;
+    int first = 0, twelve = 0;
+
+    string** str = new string * [50];
+    cout << "Введите строки" << endl;
+    for (int i = 0; k == true; i++)
+    {
+        str[i] = new string[50];
+
+        for (int j = 0; k == true; j++)
+        {
+            cin >> str[i][j];
+
+            char ch;
+
+
+            if (str[i][j] == "end")
+            {
+                k = false;
+            }
+            twelve++;
+            ch = cin.get();
+            if (ch == '\n')
+            {
+                break;
+            }
+
+
+        }
+        first++;
+    }
+    char start;
+    cout << "Введите символ, с которого должны начинаться слова" << endl << endl;
+    cin >> start;
+    func(str, start, first, twelve);
+    cout << ("Результат второй функции") << endl;
+    chet(str, start, first, twelve);
+
+
+
+    for (int i = 0; i < first; i++)
+    {
+        delete[] str[i];
+    }
+    delete[] str;
+}
